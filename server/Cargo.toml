@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 tokio = { version = "1", features = ["full"] }
 lazy_static = "1.4.0"
-sysinfo = "0.18.0"
+sysinfo = "0.29.10"

@@ -9,7 +9,7 @@ use std::process::Command;
 use std::time::{Duration, Instant};
 use std::thread;
 extern crate sysinfo;
-use sysinfo::{System, SystemExt};
+use sysinfo::{System, SystemExt,CpuExt};
 
 struct client{
     name:String,
@@ -186,7 +186,7 @@ println!("Processing");  //                     0                               
             echo_back;
 
         //  println!("Name {}, IP {}, Status {}", dos_guard[0].name, dos_guard[0].ip, dos_guard[0].status);
-    }
+    } 
 
         
 
@@ -197,15 +197,15 @@ println!("Processing");  //                     0                               
 
         let mut system = System::new_all();
         system.refresh_all();
-        // unsafe{ cpu = system.cpus()[0].cpu_usage() as i32;} 
-        unsafe{ cpu = 10 as i32;} 
+         unsafe{ cpu = system.cpus()[0].cpu_usage() as i32;} 
+        //unsafe{ cpu = 10 as i32;} 
         for item in servers.clone().lock().unwrap().iter_mut()
         {
             let sender = sender([seperated_msg[0].to_string()," ".to_string(),unsafe{cpu.to_string()}].concat(),item.ip.to_string()).await?;
             sender;
         }
 
-    thread::sleep(Duration::from_secs(10)); //change time (in sec)
+    // thread::sleep(Duration::from_secs(1)); //change time (in sec)
 
     for item in clients.clone().lock().unwrap().iter_mut()
         {
@@ -387,7 +387,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 if let Err(err) = listener().await {
                     eprintln!("Error in listener: {}", err);
                 }
-            }
+                
+                }
 
             });
         });
